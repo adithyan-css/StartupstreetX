@@ -1,18 +1,20 @@
-const mongoose = require('./db');
+const mongoose = require("./db");
 
+// Member schema for leader & team members
 const memberSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  reg_number: { type: String },          // only for internal participants
+  reg_number: { type: String },
   phone: { type: String, required: true },
-  hostel_category: { type: String },     // MH or LH, internal only
-  hostel_block: { type: String }
+  hostel_category: { type: String },  // MH or LH
+  hostel_block: { type: String },
 });
 
+// Participant schema (team)
 const participantSchema = new mongoose.Schema({
-  team_name: { type: String },           // only for teams
+  team_name: { type: String },
   leader: { type: memberSchema, required: true },
-  members: { type: [memberSchema], default: [] },  // 4 additional members
-  created_at: { type: Date, default: Date.now }
+  members: { type: [memberSchema], default: [] }, // up to 4 members
+  created_at: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Participant', participantSchema);
+module.exports = mongoose.model("Participant", participantSchema);
